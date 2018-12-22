@@ -8,11 +8,10 @@ branches:
 before_script:
   - npm install -g ganache-cli
   - npm install -g truffle@5.0.0
-  - npm install -g eslint
   - npm install
 
 script:
-  - eslint test/**/*.js
+  - ./node_modules/.bin/eslint test/**/*.js
   - ganache-cli &
   - sleep 5
   - truffle test
