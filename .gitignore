@@ -2,6 +2,7 @@ contracts/.placeholder
 test/.placeholder
 build
 .vs
+.vscode
 bin
 node_modules
 coverage/
