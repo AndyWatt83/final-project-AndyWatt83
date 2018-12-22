@@ -11,6 +11,7 @@ contract('Configuration', async (accounts) => {
         const actual = await configuration.aNumber.call();
         const expected = 5;
 
+
         assert.equal(actual, expected);
     });
 });
