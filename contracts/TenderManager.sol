@@ -26,7 +26,11 @@ contract TenderManager is Ownable, Pausable
     /// Registers a new client.
     /// @dev updates the registeredClients mapping.
     /// @return a boolean indicating success.
-    function registerClient() public whenNotPaused() returns (bool){
+    function registerClient()
+        public
+        whenNotPaused()
+        returns (bool)
+    {
         require(!registeredClients[msg.sender], "Address already registered as a client");
 
         registeredClients[msg.sender] = true;
@@ -36,15 +40,13 @@ contract TenderManager is Ownable, Pausable
         return true;
     }
 
-    /// Checks whether a passed address is a registered client
-    /// @dev Checks whether a passed address is a registered client
-    /// @param the address which is being checked
-    /// @return boolean representing whether the address is a registerd client
-    function RegisteredAsClient(address clientAddress) public returns (bool){
-        return registeredClients[clientAddress];
-    }
-
-    function registerBidder() public whenNotPaused() returns (bool){
+    /// Registers a new bidder.
+    /// @dev updates the registeredClients mapping.
+    /// @return a boolean indicating success.
+    function registerBidder()
+        public whenNotPaused()
+        returns (bool)
+    {
         require(!registeredBidders[msg.sender], "Address already registered as a bidder");
 
         registeredBidders[msg.sender] = true;

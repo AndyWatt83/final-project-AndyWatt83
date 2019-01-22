@@ -1,6 +1,9 @@
 const TenderManager = artifacts.require('./TenderManager.sol');
+const truffleAssert = require('truffle-assertions');
 
 contract('Testing TenderManager', async (accounts) => {
+
+    // Testing for registering a client
     it('Should register a Client', async () => {
         const tenderManager = await TenderManager.deployed();
 
@@ -18,6 +21,21 @@ contract('Testing TenderManager', async (accounts) => {
         assert.isTrue(finalValue);
     });
 
+    it('Should fire an event when registering a Client', async () => {
+        const tenderManager = await TenderManager.deployed();
+
+        const result = await tenderManager.registerClient({ from: accounts[2] });
+
+        truffleAssert.eventEmitted(result, 'NewClientRegistered');
+    });
+
+    it('Should revert if a client is attempts to register twice', async () => {
+        const tenderManager = await TenderManager.deployed();
+
+        await truffleAssert.reverts(tenderManager.registerClient({ from: accounts[2] }));
+    });
+
+    // Testing for registering a bidder
     it('Should register a Bidder', async () => {
         const tenderManager = await TenderManager.deployed();
 
@@ -33,6 +51,20 @@ contract('Testing TenderManager', async (accounts) => {
         const finalValue = await tenderManager.registeredBidders.call(accounts[1]);
 
         assert.isTrue(finalValue);
+    });
+
+    it('Should fire an event when registering a Bidder', async () => {
+        const tenderManager = await TenderManager.deployed();
+
+        const result = await tenderManager.registerBidder({ from: accounts[2] });
+
+        truffleAssert.eventEmitted(result, 'NewBidderRegistered');
+    });
+
+    it('Should revert if a bidder is attempts to register twice', async () => {
+        const tenderManager = await TenderManager.deployed();
+
+        await truffleAssert.reverts(tenderManager.registerBidder({ from: accounts[2] }));
     });
 
 });
