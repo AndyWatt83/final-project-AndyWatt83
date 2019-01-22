@@ -2,7 +2,6 @@ const TenderManager = artifacts.require('./TenderManager.sol');
 const truffleAssert = require('truffle-assertions');
 
 contract('Testing TenderManager', async (accounts) => {
-
     // Testing for registering a client
     it('Should register a Client', async () => {
         const tenderManager = await TenderManager.deployed();
@@ -66,5 +65,4 @@ contract('Testing TenderManager', async (accounts) => {
 
         await truffleAssert.reverts(tenderManager.registerBidder({ from: accounts[2] }));
     });
-
 });
