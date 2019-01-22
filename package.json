@@ -6,7 +6,9 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "openzeppelin-solidity": "2.1.2"
+  },
   "devDependencies": {
     "eslint": "^5.10.0",
     "eslint-config-standard": "^12.0.0",
