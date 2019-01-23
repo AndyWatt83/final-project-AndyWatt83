@@ -10,7 +10,8 @@ contract Tender
     TenderState public currentState;
     address private winner;
 
-    /// 
+    /// @notice Depolys an instance of the Tender contract
+    /// @dev stores the tender id and the percentage downpayment for this contract
     constructor (uint _tenderId, uint _percentageDownpayment) public payable
     {
         tenderId = _tenderId;
@@ -21,27 +22,28 @@ contract Tender
 
     enum TenderState { Draft, Open, Awarded, Complete, Cancelled }
 
-    /// Moves a draft tender to 'open' and ready to accept bids
+    /// @notice Moves a draft tender to 'open' and ready to accept bids
     /// @dev sets the enum to TenderState.Open
     function openContract() public
     {
         currentState = TenderState.Open;
     }
 
-    /// Moves an open tender to Awarded, ready for work to commence
-    /// @dev sets the enum to TenderState.Open, and stored the winning address
+    /// @notice Moves an open tender to Awarded, ready for work to commence
+    /// @dev sets the enum to TenderState.Open, and stores the winning address
     function awardContract(address _winner) public {
         winner = _winner;
         currentState = TenderState.Awarded;
     }
 
-    /// Moves an Awarded contract to complete
-    /// @dev 
+    /// @notice Moves an Awarded contract to complete
+    /// @dev sets the enum to TenderState.Complete
     function completeContract() public {
         currentState = TenderState.Complete;
     }
 
-    // Cancels a contract, from any state
+    /// @notice Cancels a contract, from any state
+    /// @dev sets the enum to TenderState.Cancelled, and does the required clean up
     function cancelContract() public {
         currentState = TenderState.Cancelled;
     }

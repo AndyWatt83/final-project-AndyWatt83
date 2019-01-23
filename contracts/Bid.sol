@@ -11,7 +11,8 @@ contract Bid
 
     uint percentagePromised;
 
-
+    /// @notice Depolys an instance of the Bid contract
+    /// @dev stores the address of the tender that this bid is bidding on
     constructor (address _tenderAddress) public
     {
         tenderAddress = _tenderAddress;

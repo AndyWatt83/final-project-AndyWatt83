@@ -112,7 +112,7 @@ contract TenderManager is Ownable, Pausable
         currentJobId += 1;
     }
 
-    /// Closes a new tender for a registered client.
+    /// @notice Closes a new tender for a registered client.
     /// @dev Removes a instance of the Tender contract, and cancels any open bids
     function cancelTender()
         public
@@ -124,7 +124,7 @@ contract TenderManager is Ownable, Pausable
         clientTenderIds[msg.sender] = 0;
     }
 
-    /// Places a bid on an open tender
+    /// @notice Places a bid on an open tender
     /// @dev Places a bid on an open tender
     function bidOnTender(address tenderAddress)
         public
