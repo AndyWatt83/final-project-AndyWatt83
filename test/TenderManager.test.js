@@ -74,7 +74,7 @@ contract('Testing TenderManager', async (accounts) => {
         await tenderManager.registerClient({ from: accounts[4] });
 
         // create the Tender
-        await tenderManager.createTender({ from: accounts[4] });
+        await tenderManager.createTender(15, { from: accounts[4] });
 
         const tenterId = await tenderManager.clientTenderIds.call(accounts[4]);
 
@@ -95,20 +95,20 @@ contract('Testing TenderManager', async (accounts) => {
     it('Should revert if a caller is not a client', async () => {
         const tenderManager = await TenderManager.deployed();
 
-        await truffleAssert.reverts(tenderManager.createTender({ from: accounts[3] }));
+        await truffleAssert.reverts(tenderManager.createTender(15, { from: accounts[3] }));
     });
 
     it('Should revert if a client attempts to open multiple tenders', async () => {
         const tenderManager = await TenderManager.deployed();
 
-        await tenderManager.createTender({ from: accounts[1] });
-        await truffleAssert.reverts(tenderManager.createTender({ from: accounts[1] }));
+        await tenderManager.createTender(15, { from: accounts[1] });
+        await truffleAssert.reverts(tenderManager.createTender(15, { from: accounts[1] }));
     });
 
     it('Should revert if the contract is paused', async () => {
         const tenderManager = await TenderManager.deployed();
 
         await tenderManager.pause({ from: accounts[0] });
-        await truffleAssert.reverts(tenderManager.createTender({ from: accounts[1] }));
+        await truffleAssert.reverts(tenderManager.createTender(15, { from: accounts[1] }));
     });
 });

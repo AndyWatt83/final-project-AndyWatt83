@@ -84,17 +84,19 @@ contract TenderManager is Ownable, Pausable
         return true;
     }
 
-    /// Creates a new tender for a registered client.
-    /// @dev Deploys a new instance of the Tender contract, and associates it with the calling client
-    function createTender()
+    /// Creates a new tender for a registered client, with a spcecified downpayment percentage.
+    /// @param percentageDownpayment. The percentage of the tender value paid on award.
+    /// @dev Deploys a new instance of the Tender contract, and associates it with the calling client.
+    function createTender(uint percentageDownpayment)
         public
+        payable
         whenNotPaused()
         callerIsClient()
         clientHasNoOpenTender()
         returns (bool)
     {
         clientTenderIds[msg.sender] = currentJobId;
-        tenderIdAddresses[currentJobId] = address(new Tender(currentJobId));
+        tenderIdAddresses[currentJobId] = address(new Tender(currentJobId, percentageDownpayment));
         currentJobId += 1;
     }
 
