@@ -67,7 +67,7 @@ contract('Testing TenderManager', async (accounts) => {
     });
 
     // Testing for createTender
-    it('Should create a tender for a registered client', async () => {
+    it('Should create a tender for a registered client with specified percentage', async () => {
         const tenderManager = await TenderManager.deployed();
 
         // register the client

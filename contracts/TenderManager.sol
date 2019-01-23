@@ -27,6 +27,14 @@ contract TenderManager is Ownable, Pausable
         _;
     }
 
+    /// Modifier which ensures that the sender is registerd as a bidder.
+    /// @dev Checks that the sender address has an entry in registeredBidders.
+    modifier callerIsBidder()
+    {
+        require (registeredBidders[msg.sender], "Caller is not a registered client");
+        _;
+    }
+
     /// Modifier which ensures that the sender currently has an open tender.
     /// @dev Checks that the id associated with the sender is greater than zero.
     modifier clientHasOpenTender()
@@ -43,11 +51,15 @@ contract TenderManager is Ownable, Pausable
         _;
     }
 
+
+    uint public tenderValue;
+
     /// Constructor for the TenderManager contract.
     /// @dev Takes no arguments, sets the currentJobId to 1 (zero is used to mean null).
-    constructor () public
+    constructor () public payable
     {
         currentJobId = 1;
+        tenderValue = msg.value;
     }
 
     /// Registers a new client.
@@ -96,7 +108,7 @@ contract TenderManager is Ownable, Pausable
         returns (bool)
     {
         clientTenderIds[msg.sender] = currentJobId;
-        tenderIdAddresses[currentJobId] = address(new Tender(currentJobId, percentageDownpayment));
+        tenderIdAddresses[currentJobId] = address((new Tender).value(msg.value)(currentJobId, percentageDownpayment));
         currentJobId += 1;
     }
 
@@ -112,4 +124,15 @@ contract TenderManager is Ownable, Pausable
         clientTenderIds[msg.sender] = 0;
     }
 
+    /// Places a bid on an open tender
+    /// @dev Places a bid on an open tender
+    function bidOnTender(address tenderAddress)
+        public
+        whenNotPaused()
+        callerIsBidder()
+        returns (bool)
+    {
+        Tender tender = Address(tenderAddress);
+        return tender.tenderId = 1;
+    }
 }
