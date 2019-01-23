@@ -9,6 +9,8 @@ contract Tender
     uint public percentageDownpayment;
     TenderState public currentState;
     address private winner;
+    address[] private bids;
+    string public ipfsAddressHash;
 
     /// @notice Depolys an instance of the Tender contract
     /// @dev stores the tender id and the percentage downpayment for this contract
@@ -20,31 +22,100 @@ contract Tender
         currentState = TenderState.Draft;
     }
 
+    /// @notice An envent indicating that the contract state has been set to Open
+    event tenderOpened();
+
+    /// @notice An envent indicating that the contract state has been set to Awarded
+    event tenderAwarded();
+
+    /// @notice An envent indicating that the contract state has been set to Complete
+    event tenderCompleted();
+
+    /// @notice An envent indicating that the contract state has been set to Cancelled
+    event tenderCancelled();
+
+    /// @notice An enumeration of the possible contract states
     enum TenderState { Draft, Open, Awarded, Complete, Cancelled }
+
+    /// @notice Modifier to check the currentState against a required state
+    modifier checkState(TenderState requiredState)
+    {
+        require(currentState == requiredState, "contract is not in the correct state");
+        _;
+    }
+
+    /// @notice Modifier to check that the IPFS has with the dender document is not null
+    modifier hasIpfsHash()
+    {
+        bytes memory textRepresentation = bytes(ipfsAddressHash);
+        require (textRepresentation.length > 0, "IPFS has is required");
+        _;
+    }
 
     /// @notice Moves a draft tender to 'open' and ready to accept bids
     /// @dev sets the enum to TenderState.Open
-    function openContract() public
+    function openTender()
+        public
+        hasIpfsHash()
+        checkState(TenderState.Draft)
+        returns(TenderState)
     {
         currentState = TenderState.Open;
+        emit tenderOpened();
+        return currentState;
     }
 
     /// @notice Moves an open tender to Awarded, ready for work to commence
     /// @dev sets the enum to TenderState.Open, and stores the winning address
-    function awardContract(address _winner) public {
+    function awardTender(address _winner)
+        public
+        checkState(TenderState.Open)
+        returns(TenderState)
+    {
         winner = _winner;
         currentState = TenderState.Awarded;
+        emit tenderAwarded();
+        return currentState;
     }
 
     /// @notice Moves an Awarded contract to complete
     /// @dev sets the enum to TenderState.Complete
-    function completeContract() public {
+    function completeTender()
+        public
+        checkState(TenderState.Awarded)
+        returns(TenderState)
+    {
         currentState = TenderState.Complete;
+        emit tenderCompleted();
+        return currentState;
     }
 
     /// @notice Cancels a contract, from any state
     /// @dev sets the enum to TenderState.Cancelled, and does the required clean up
-    function cancelContract() public {
+    function cancelTender()
+        public
+        returns(TenderState)
+    {
         currentState = TenderState.Cancelled;
+        emit tenderCancelled();
+        return currentState;
     }
+
+    /// @notice function called by a bidder to notify the client of their bid
+    function placeBid(address bidAddress)
+        public
+        checkState(TenderState.Open)
+        returns (bool)
+    {
+        bids.push(bidAddress);
+    }
+
+    function setIpfsHash(string memory _ipfsAddressHash)
+        public
+        returns (bool)
+    {
+        ipfsAddressHash = _ipfsAddressHash;
+        return true;
+    }
+
 }
