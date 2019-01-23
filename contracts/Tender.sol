@@ -2,8 +2,10 @@ pragma solidity ^0.5.0;
 
 contract Tender
 {
-    constructor () public
-    {
+    uint public tenderId;
 
+    constructor (uint _tenderId) public
+    {
+        tenderId = _tenderId;
     }
 }

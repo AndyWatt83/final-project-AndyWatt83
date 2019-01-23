@@ -2,6 +2,7 @@ pragma solidity ^0.5.0;
 
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
+import "./Tender.sol";
 
 /// @author Andy Watt
 /// @title The manager contract for the decentralised tendering application
@@ -13,6 +14,7 @@ contract TenderManager is Ownable, Pausable
     mapping (address => bool) public registeredBidders;
     mapping (uint => address) public jobOwners;
     mapping (address => uint) public clientTenderIds;
+    mapping (uint => address) public tenderIdAddresses;
 
     event NewClientRegistered(address indexed clientAddress);
     event NewBidderRegistered(address indexed bidderAddress);
@@ -84,6 +86,7 @@ contract TenderManager is Ownable, Pausable
         returns (bool)
     {
         clientTenderIds[msg.sender] = currentJobId;
+        tenderIdAddresses[currentJobId] = address(new Tender(currentJobId));
         currentJobId += 1;
     }
 
