@@ -19,7 +19,7 @@ contract TenderManager is Ownable, Pausable
     event NewClientRegistered(address indexed clientAddress);
     event NewBidderRegistered(address indexed bidderAddress);
 
-    /// Modifier which ensures that the sender is registerd as a client.
+    /// @notice Modifier which ensures that the sender is registerd as a client.
     /// @dev Checks that the sender address has an entry in registeredClients.
     modifier callerIsClient()
     {
@@ -27,7 +27,7 @@ contract TenderManager is Ownable, Pausable
         _;
     }
 
-    /// Modifier which ensures that the sender is registerd as a bidder.
+    /// @notice Modifier which ensures that the sender is registerd as a bidder.
     /// @dev Checks that the sender address has an entry in registeredBidders.
     modifier callerIsBidder()
     {
@@ -35,7 +35,7 @@ contract TenderManager is Ownable, Pausable
         _;
     }
 
-    /// Modifier which ensures that the sender currently has an open tender.
+    /// @notice Modifier which ensures that the sender currently has an open tender.
     /// @dev Checks that the id associated with the sender is greater than zero.
     modifier clientHasOpenTender()
     {
@@ -43,7 +43,7 @@ contract TenderManager is Ownable, Pausable
         _;
     }
 
-    /// Modifier which ensures that the sender does not currently have an open tender.
+    /// @notice Modifier which ensures that the sender does not currently have an open tender.
     /// @dev Checks that the id associated with the sender is zero.
     modifier clientHasNoOpenTender()
     {
@@ -54,7 +54,7 @@ contract TenderManager is Ownable, Pausable
 
     uint public tenderValue;
 
-    /// Constructor for the TenderManager contract.
+    /// @notice Constructor for the TenderManager contract.
     /// @dev Takes no arguments, sets the currentJobId to 1 (zero is used to mean null).
     constructor () public payable
     {
@@ -62,7 +62,7 @@ contract TenderManager is Ownable, Pausable
         tenderValue = msg.value;
     }
 
-    /// Registers a new client.
+    /// @notice Registers a new client.
     /// @dev updates the registeredClients mapping.
     /// @return a boolean indicating success.
     function registerClient()
@@ -79,7 +79,7 @@ contract TenderManager is Ownable, Pausable
         return true;
     }
 
-    /// Registers a new bidder.
+    /// @notice Registers a new bidder.
     /// @dev updates the registeredClients mapping.
     /// @return a boolean indicating success.
     function registerBidder()
@@ -96,7 +96,7 @@ contract TenderManager is Ownable, Pausable
         return true;
     }
 
-    /// Creates a new tender for a registered client, with a spcecified downpayment percentage.
+    /// @notice Creates a new tender for a registered client, with a spcecified downpayment percentage.
     /// @param percentageDownpayment. The percentage of the tender value paid on award.
     /// @dev Deploys a new instance of the Tender contract, and associates it with the calling client.
     function createTender(uint percentageDownpayment)
@@ -130,9 +130,11 @@ contract TenderManager is Ownable, Pausable
         public
         whenNotPaused()
         callerIsBidder()
-        returns (bool)
+        view
+        returns (uint)
     {
-        Tender tender = Address(tenderAddress);
-        return tender.tenderId = 1;
+        Tender tender = Tender(address(tenderAddress));
+        uint percentage = tender.percentageDownpayment();
+        return percentage;
     }
 }
