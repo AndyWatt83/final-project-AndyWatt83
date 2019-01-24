@@ -1,5 +1,5 @@
-const Configuration = artifacts.require('./Configuration.sol');
-const TenderManager = artifacts.require('./TenderManager.sol');
+const Configuration = artifacts.require('Configuration');
+const TenderManager = artifacts.require('TenderManager');
 
 module.exports = function (deployer) {
     deployer.deploy(Configuration);

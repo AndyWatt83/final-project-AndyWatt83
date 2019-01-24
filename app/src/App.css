@@ -1,0 +1,20 @@
+.App {
+    text-align: center;
+    margin: 2rem;
+}
+
+.section {
+    text-align: left;
+    max-width: 720px;
+    margin: 4rem auto auto;
+}
+
+.horizontalLayout{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ccc;
+}
+
+.borderDiv{
+    border: 1px solid #ccc;
+}

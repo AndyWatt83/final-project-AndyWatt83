@@ -1,5 +1,6 @@
 contracts/.placeholder
 test/.placeholder
+app/src/contracts
 build
 .vs
 .vscode

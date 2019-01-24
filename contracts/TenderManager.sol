@@ -16,8 +16,10 @@ contract TenderManager is Ownable, Pausable
     mapping (address => uint) public clientTenderIds;
     mapping (uint => address) public tenderIdAddresses;
 
-    event NewClientRegistered(address indexed clientAddress);
-    event NewBidderRegistered(address indexed bidderAddress);
+    event ClientRegistered(address indexed clientAddress);
+    event ClientUnregistered(address indexed clientAddress);
+    event BidderRegistered(address indexed bidderAddress);
+    event BidderUnregistered(address indexed bidderAddress);
 
     /// @notice Modifier which ensures that the sender is registerd as a client.
     /// @dev Checks that the sender address has an entry in registeredClients.
@@ -74,7 +76,24 @@ contract TenderManager is Ownable, Pausable
 
         registeredClients[msg.sender] = true;
 
-        emit NewClientRegistered(msg.sender);
+        emit ClientRegistered(msg.sender);
+
+        return true;
+    }
+
+    /// @notice Unregisters an existing client.
+    /// @dev updates the registeredClients mapping.
+    /// @return a boolean indicating success.
+    function unregisterClient()
+        public
+        whenNotPaused()
+        returns (bool)
+    {
+        require(registeredClients[msg.sender], "Address already registered as a client");
+
+        registeredClients[msg.sender] = false;
+
+        emit ClientUnregistered(msg.sender);
 
         return true;
     }
@@ -91,7 +110,7 @@ contract TenderManager is Ownable, Pausable
 
         registeredBidders[msg.sender] = true;
 
-        emit NewBidderRegistered(msg.sender);
+        emit BidderRegistered(msg.sender);
 
         return true;
     }
