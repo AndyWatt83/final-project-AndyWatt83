@@ -28,7 +28,11 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
+require('dotenv').config();
+
 const path = require('path');
+const HDWalletProvider = require('truffle-hdwallet-provider');
+const rinkebyUri = 'https://rinkeby.infura.io/v3/' + process.env.APIKEY;
 
 module.exports = {
     contracts_build_directory: path.join(__dirname, 'app/src/contracts'),
@@ -38,6 +42,15 @@ module.exports = {
             port: 8545,
             network_id: '*',
         },
+        rinkeby: {
+            provider: function () {
+                return new HDWalletProvider(
+                    process.env.MNEMONIC,
+                    rinkebyUri
+                );
+            },
+            network_id: 4
+        }
     },
 
     // Set default mocha options here, use special reporters etc.

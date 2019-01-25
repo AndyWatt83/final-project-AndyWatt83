@@ -157,4 +157,11 @@ contract TenderManager is Ownable, Pausable, IpfsHashHolder
         uint percentage = tender.percentageDownpayment();
         return percentage;
     }
+
+    function closeTenderManager () public
+        onlyOwner()
+    {
+        // there may be a lot of cleanup required here. For now, just self destruct
+        // selfdestruct(address(owner));
+    }
 }
