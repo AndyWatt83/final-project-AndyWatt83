@@ -158,10 +158,10 @@ contract TenderManager is Ownable, Pausable, IpfsHashHolder
         return percentage;
     }
 
-    function closeTenderManager () public
+    function closeTenderManager (address payable recipient) public
         onlyOwner()
     {
         // there may be a lot of cleanup required here. For now, just self destruct
-        // selfdestruct(address(owner));
+        selfdestruct(address(recipient));
     }
 }

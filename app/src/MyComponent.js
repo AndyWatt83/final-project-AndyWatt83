@@ -4,6 +4,7 @@ import {
     ContractData,
     ContractForm,
 } from "drizzle-react-components";
+import IpfsForm from "./IpfsForm"
 
 import logo from "./logo.png";
 
@@ -13,7 +14,7 @@ export default ({ accounts }) => (
             <h2>Active Account</h2>
             <AccountData accountIndex="0" units="ether" precision="3" />
         </div>
-
+        <IpfsForm />
         <div className="section">
             <h2> Tender Manager </h2>
             <div className="borderDiv">
