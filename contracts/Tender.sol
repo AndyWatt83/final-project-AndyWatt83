@@ -48,7 +48,7 @@ contract Tender is IpfsHashHolder
     /// @notice Modifier to check that the IPFS has with the dender document is not null
     modifier hasIpfsHash()
     {
-        bytes memory textRepresentation = bytes(ipfsAddressHash);
+        bytes memory textRepresentation = bytes(ipfsHash);
         require (textRepresentation.length > 0, "IPFS has is required");
         _;
     }
