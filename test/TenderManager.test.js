@@ -25,7 +25,7 @@ contract('Testing TenderManager', async (accounts) => {
 
         const result = await tenderManager.registerClient({ from: accounts[2] });
 
-        truffleAssert.eventEmitted(result, 'NewClientRegistered');
+        truffleAssert.eventEmitted(result, 'ClientRegistered');
     });
 
     it('Should revert if a client is attempts to register twice', async () => {
@@ -57,7 +57,7 @@ contract('Testing TenderManager', async (accounts) => {
 
         const result = await tenderManager.registerBidder({ from: accounts[2] });
 
-        truffleAssert.eventEmitted(result, 'NewBidderRegistered');
+        truffleAssert.eventEmitted(result, 'BidderRegistered');
     });
 
     it('Should revert if a bidder is attempts to register twice', async () => {

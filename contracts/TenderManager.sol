@@ -3,10 +3,11 @@ pragma solidity ^0.5.0;
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 import "./Tender.sol";
+import "./IpfsHashHolder.sol"; // Need to remove this from here
 
 /// @author Andy Watt
 /// @title The manager contract for the decentralised tendering application
-contract TenderManager is Ownable, Pausable
+contract TenderManager is Ownable, Pausable, IpfsHashHolder
 {
     uint currentJobId;
 

@@ -1,8 +1,10 @@
 pragma solidity ^0.5.0;
 
+import "./IpfsHashHolder.sol";
+
 /// @title A contract representing a tender in the tender management system.
 /// @author Andy Watt
-contract Tender
+contract Tender is IpfsHashHolder
 {
     uint public tenderId;
     uint public tenderValue;
@@ -10,7 +12,6 @@ contract Tender
     TenderState public currentState;
     address private winner;
     address[] private bids;
-    string public ipfsAddressHash;
 
     /// @notice Depolys an instance of the Tender contract
     /// @dev stores the tender id and the percentage downpayment for this contract
@@ -109,13 +110,4 @@ contract Tender
     {
         bids.push(bidAddress);
     }
-
-    function setIpfsHash(string memory _ipfsAddressHash)
-        public
-        returns (bool)
-    {
-        ipfsAddressHash = _ipfsAddressHash;
-        return true;
-    }
-
 }
