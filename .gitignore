@@ -10,3 +10,4 @@ coverage/
 .env
 .node-xmlhttprequest-sync
 coverage.json
+flattened.sol

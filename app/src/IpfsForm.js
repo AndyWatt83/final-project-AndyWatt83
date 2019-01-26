@@ -11,13 +11,7 @@ class IpfsForm extends Component {
     constructor(props, context) {
         super(props)
         this.state = {
-            web3: null,
-            accounts: null,
-            contract: null,
-            ipfsHash: null,
-            formIPFS: "",
-            formAddress: "",
-            receivedIPFS: ""
+            ipfsHash: null
         };
 
         this.onIPFSSubmit = this.onIPFSSubmit.bind(this);
@@ -42,20 +36,11 @@ class IpfsForm extends Component {
     onIPFSSubmit = async (event) => {
         event.preventDefault();
 
-        //bring in user's metamask account address
-        const accounts = this.state.accounts;
-
-        //console.log('Sending from Metamask account: ' + accounts[0]);
-
-        //save document to IPFS,return its hash#, and set hash# to state
-        //https://github.com/ipfs/interface-ipfs-core/blob/master/SPEC/FILES.md#add
-
         await ipfs.add(this.state.buffer, (err, ipfsHash) => {
             console.log(err,ipfsHash);
             //setState by setting ipfsHash to ipfsHash[0].hash
             console.log('IPFS hash is:' + ipfsHash);
             this.setState({ ipfsHash: ipfsHash[0].hash });
-
         })
     };
 

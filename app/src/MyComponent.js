@@ -49,6 +49,17 @@ export default ({ accounts }) => (
                 contract="TenderManager"
                 method="createTender"
                 labels={["% on Award"]}/>
+
+            Set IPFS
+            <ContractForm
+                contract="TenderManager"
+                method="setIpfsHash"
+                labels={["Paste in IPFS Hash"]}/>
+                <br />
+            <ContractData
+                contract="TenderManager"
+                method="ipfsHash"
+                labels={["Current Hash"]}/>
         </div>
 
         {/* <div className="section">
