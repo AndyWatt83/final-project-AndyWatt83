@@ -1,0 +1,33 @@
+The clinet requests that bidders please tender on the following elements of the project.
+Please indicate which of these requirements are met by the tender, and submit the cost to carry out the work.
+
+The client requests that a distributed application be built on the Ethereum network. The following requirements should be met:
+
+ 1. Projecy should contain a readme.md file
+ 2. Project must compile, migrate, and pass tests
+ 3. The code should be commented correctly
+ 4. Where appropriate, library files, and inheritance should be used
+ 5. The UI should run on a local dev server
+ 6. The UI should be accessible on a localhost URL
+ 7. The details of the current account should be displayed
+ 8.  Transactions can be signed with metamask
+ 9. The UI relfeclts the contract state
+10. Five tests written
+11. Tests are explained with brief comments
+12. Test are properly structured
+13. All tests pass
+14. One circuit breaker
+15. Design pattern decisions made by author
+16. Design  pattern decisions implemented in project
+17. Avoiding common attacks file
+18. Avoiding common attacks file - at least three, and how mitigated
+19. File called deployed addresses
+20. IPFS
+21. Upgradable design pattern
+22. Vyper or LLL
+23. uPort
+24. ENS
+25. Oracle
+
+
+Please submit a bid which indicatea which of above will be met, and the cost of completing the project

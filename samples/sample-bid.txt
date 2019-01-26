@@ -1,0 +1,31 @@
+Please see below the requirements which this bid promises to fulfil:
+
+ 1. Projecy should contain a readme.md file - [YES]
+ 2. Project must compile, migrate, and pass tests - [YES]
+ 3. The code should be commented correctly - [YES]
+ 4. Where appropriate, library files, and inheritance should be used - [YES]
+ 5. The UI should run on a local dev server - [YES]
+ 6. The UI should be accessible on a localhost URL - [YES]
+ 7. The details of the current account should be displayed - [YES]
+ 8.  Transactions can be signed with metamask - [YES]
+ 9. The UI relfeclts the contract state - [YES]
+10. Five tests written - [YES]
+11. Tests are explained with brief comments - [YES]
+12. Test are properly structured - [YES]
+13. All tests pass - [YES]
+14. One circuit breaker - [YES]
+15. Design pattern decisions made by author - [YES]
+16. Design  pattern decisions implemented in project - [YES]
+17. Avoiding common attacks file - [YES]
+18. Avoiding common attacks file - at least three, and how mitigated - [YES]
+19. File called deployed addresses - [YES]
+20. IPFS - [YES]
+21. Upgradable design pattern - [NO]
+22. Vyper or LLL - [Partial]
+23. uPort - [NO]
+24. ENS - [NO]
+25. Oracle - [NO]
+
+
+The cost to the client to complete this project will be 30ETH.
+The project will be completed over ~8 weeks, represented by 322560 Ethereum blocls, starting when the contract state is moved to awarded.

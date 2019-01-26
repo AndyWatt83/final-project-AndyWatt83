@@ -46,7 +46,7 @@ class IpfsForm extends Component {
     render() {
         return (
             <div className="App">
-                <h2> Select a file to send to IPFS here </h2>
+                <p> Select a file to send to IPFS here </p>
                 <form id="ipfs-hash-form" className="scep-form" onSubmit={this.onIPFSSubmit}>
                     <input type = "file" onChange={this.captureFile} />
                     <button type="submit">Send</button>

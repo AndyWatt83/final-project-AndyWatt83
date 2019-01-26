@@ -3,11 +3,10 @@ pragma solidity ^0.5.0;
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 import "./Tender.sol";
-import "./IpfsHashHolder.sol"; // Need to remove this from here
 
 /// @author Andy Watt
 /// @title The manager contract for the decentralised tendering application
-contract TenderManager is Ownable, Pausable, IpfsHashHolder
+contract TenderManager is Ownable, Pausable
 {
     uint currentJobId;
 
@@ -125,11 +124,12 @@ contract TenderManager is Ownable, Pausable, IpfsHashHolder
         whenNotPaused()
         callerIsClient()
         clientHasNoOpenTender()
-        returns (bool)
+        returns (address)
     {
         clientTenderIds[msg.sender] = currentJobId;
         tenderIdAddresses[currentJobId] = address((new Tender).value(msg.value)(currentJobId, percentageDownpayment));
         currentJobId += 1;
+        return tenderIdAddresses[currentJobId];
     }
 
     /// @notice Closes a new tender for a registered client.
@@ -158,6 +158,19 @@ contract TenderManager is Ownable, Pausable, IpfsHashHolder
         return percentage;
     }
 
+    /// @notice Attaches an IPFS hash to either a tender or a bid
+    /// @dev Calls self destruct
+    function associateIPFS (string memory ipfsHash, address ipfsHolderAddress)
+        public
+        returns (bool)
+    {
+        IpfsHashHolder ipfsHashHolder = IpfsHashHolder(address(ipfsHolderAddress));
+        ipfsHashHolder.setIpfsHash(ipfsHash);
+        return true;
+    }
+
+    /// @notice Removes this contract from the etheruem blockchain
+    /// @dev CAlls self destruct
     function closeTenderManager (address payable recipient) public
         onlyOwner()
     {
