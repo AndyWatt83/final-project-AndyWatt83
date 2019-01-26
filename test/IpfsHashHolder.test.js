@@ -4,7 +4,6 @@ const truffleAssert = require('truffle-assertions');
 /* These tests ensure the correct operation of the IpfsHashHolder contract.
 **/
 contract('Testing IpfsHashHolder', async (accounts) => {
-
     /* The purpose of this test is to make sure that the contract corectly stores the
      * supplied string in the ipfsHash variable.
      **/

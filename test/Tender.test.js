@@ -4,7 +4,6 @@ const truffleAssert = require('truffle-assertions');
 /* These tests ensure the correct operation of the Tender contract.
 **/
 contract('Testing Tender', async (accounts) => {
-
     /* Tests the functionality of the constructor.
      * Simply check that the params are stored.
      **/

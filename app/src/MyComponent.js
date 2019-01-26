@@ -14,6 +14,9 @@ export default ({ accounts }) => (
             <h2>Active Account</h2>
             <AccountData accountIndex="0" units="ether" precision="3" />
         </div>
+        <p>
+            This UI is a very simle refernece implementatin that allows the full life cycle of a tender to be assessed. This is simply intended to demonstrate how the contract interactions work, this is not a complete UI for this tendering system
+        </p>
         <IpfsForm />
         <div className="section">
             <h2> Tender Manager </h2>

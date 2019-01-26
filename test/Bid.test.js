@@ -5,7 +5,6 @@ const Tender = artifacts.require('./Tender.sol');
 /* These tests ensure the correct operation of the Bid contract.
 **/
 contract('Testing Bid', async (accounts) => {
-
     /* Tests the functionality of the constructor.
      * Simply check that the params are stored.
      **/
