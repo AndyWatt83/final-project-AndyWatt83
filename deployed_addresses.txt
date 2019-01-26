@@ -1,5 +1,5 @@
 TenderManager is deployed to Rinkeby network at:
-0xe5094e27de2b389e5028c8c50a283522b3fa44dd
+0x2585a99120a6fbd8e69315d31a20b5f355a47960
 
 The code is verified:
-https://rinkeby.etherscan.io/address/0xe5094e27de2b389e5028c8c50a283522b3fa44dd#code
+https://rinkeby.etherscan.io/address/0x2585a99120a6fbd8e69315d31a20b5f355a47960#code
