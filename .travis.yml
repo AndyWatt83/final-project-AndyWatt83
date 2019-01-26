@@ -16,9 +16,9 @@ script:
   - sleep 5
   - truffle test
 
-# deploy:
-#   provider: script
-#   skip_cleanup: true
-#   script: chmod +x deploy.sh && ./deploy.sh
-#   on:
-#     branch: master
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: chmod +x deploy.sh && ./deploy.sh
+  on:
+    branch: master
