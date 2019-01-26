@@ -15,37 +15,54 @@ export default ({ accounts }) => (
             <AccountData accountIndex="0" units="ether" precision="3" />
         </div>
         <p>
-            This UI is a very simle refernece implementatin that allows the full life cycle of a tender to be assessed. This is simply intended to demonstrate how the contract interactions work, this is not a complete UI for this tendering system
+            This UI is a very simple reference implementation that allows the full life cycle of a tender to be assessed. This is simply intended to demonstrate how the contract interactions work, this is not a complete UI for this tendering system.
         </p>
+        <hr />
+        <table>
+            <tr>
+                <td>
+                    Register as client
+                </td>
+                <td>
+                    Unegister as client
+                </td>
+                <td>
+                    Is Registered
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div className="borderDiv">
+                    <p>Register as Client:</p>
+                    <ContractForm
+                        contract="TenderManager"
+                        method="registerClient"
+                        labels={["Register as Client"]}/>
+                    </div>
+                </td>
+                <td>
+                    <div className="borderDiv">
+                    <p>Unregister as Client:</p>
+                    <ContractForm
+                        contract="TenderManager"
+                        method="unregisterClient"
+                        labels={["Unegister as Client"]}/>
+                    </div>
+                </td>
+                <td>
+                    <ContractData
+                    contract="TenderManager"
+                    method="registeredClients"
+                    methodArgs={[accounts[0]]}
+                    labels={["Check Registered"]}/>
+                </td>
+            </tr>
+        </table>
         <IpfsForm />
         <div className="section">
             <h2> Tender Manager </h2>
-            <div className="borderDiv">
-                <p>Register as Client:</p>
-                <ContractForm
-                    contract="TenderManager"
-                    method="registerClient"
-                    labels={["Register as Client"]}/>
-            </div>
+            <ContractForm contract="TenderManager" method="registeredClients" methodArgs={[accounts[0]]}/>
 
-            <div className="borderDiv">
-                <p>Unregister as Client:</p>
-                <ContractForm
-                    contract="TenderManager"
-                    method="unregisterClient"
-                    labels={["Unegister as Client"]}/>
-            </div>
-
-            <div className="borderDiv">
-                <p>Check if an address is a registered client:</p>
-                <ContractForm contract="TenderManager" method="registeredClients"/>
-            </div>
-
-            <ContractData
-                contract="TenderManager"
-                method="registeredClients"
-                methodArgs={[accounts[0]]}
-                labels={["Check Registered"]}/>
             <br />
             Create Tender:
             <ContractForm
