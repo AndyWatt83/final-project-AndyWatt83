@@ -1,10 +1,11 @@
 pragma solidity ^0.5.0;
 
 import "./Tender.sol";
+import "./IpfsHashHolder.sol";
 
 /// @title A contract representing a bid in the tender management system.
 /// @author Andy Watt
-contract Bid
+contract Bid is IpfsHashHolder
 {
     address public tenderAddress;
     Tender public tender;

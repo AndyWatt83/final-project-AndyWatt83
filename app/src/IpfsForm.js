@@ -38,7 +38,6 @@ class IpfsForm extends Component {
 
         await ipfs.add(this.state.buffer, (err, ipfsHash) => {
             console.log(err,ipfsHash);
-            //setState by setting ipfsHash to ipfsHash[0].hash
             console.log('IPFS hash is:' + ipfsHash);
             this.setState({ ipfsHash: ipfsHash[0].hash });
         })
