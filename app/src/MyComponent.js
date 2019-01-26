@@ -239,5 +239,7 @@ export default ({ accounts }) => (
             </tr>
             </tbody>
         </table>
+        <hr />
+        5. Further sections should be added to accept the tender, and transfer the funds requested when completed.
     </div>
 );

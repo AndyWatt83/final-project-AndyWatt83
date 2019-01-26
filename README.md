@@ -31,7 +31,7 @@ To run this project, you must have the following installed:
 + git
 + npm
 + truffle
-+ ganache-cli
++ ganache (GUI, not CLI)
 + metamask
 + Visual Studio Code (or other text editor)
 
@@ -49,13 +49,12 @@ To evaluate this project, please:
 9. `npm install`
 10. `npm run start`
 
-The user interface will then load, and the following interactions can be carried out
+The user interface will then load.
+
+Instructions for using the UI, are included in the UI.
 
 ---
 
-# Interactions / user stories:
-
-TODO
 
 
 

@@ -45,4 +45,17 @@ contract('Testing Tender', async (accounts) => {
 
         truffleAssert.eventEmitted(result, 'tenderOpened');
     });
+
+    /* Methods are added to return the sontract state. This is testesd here
+     **/
+    it('Should return true when the contract is in the open state', async () => {
+        const tender = await Tender.new(123, 45);
+
+        await tender.setIpfsHash('Any string will work in here');
+        await tender.openTender();
+
+        const result = await tender.tenderIsOpen();
+
+        assert.isTrue(result);
+    });
 });
