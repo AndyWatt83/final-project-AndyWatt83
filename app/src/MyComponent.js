@@ -27,13 +27,13 @@ export default ({ accounts }) => (
             <tbody>
             <tr>
                 <td>
-                    Register as client
+                    Register as Client
                 </td>
                 <td>
-                    Unegister as client
+                    Unegister as Client
                 </td>
                 <td>
-                    Is Registered
+                    Is Registered Client
                 </td>
             </tr>
             <tr>
@@ -131,7 +131,45 @@ export default ({ accounts }) => (
             </tbody>
         </table>
         <hr />
-        3. Use this section to create a new bid, and associate with the above tender.
+        3. Use this section to create register as a bidder.
+        <table border="1">
+            <tbody>
+            <tr>
+                <td>
+                    Register as Bidder
+                </td>
+                <td>
+                    Unegister as Bidder
+                </td>
+                <td>
+                    Is Registered Bidder
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ContractForm
+                        contract="TenderManager"
+                        method="registerBidder"
+                        labels={["Register as Bidder"]}/>
+                </td>
+                <td>
+                    <ContractForm
+                        contract="TenderManager"
+                        method="unregisterBidder"
+                        labels={["Unegister as Bidder"]}/>
+                </td>
+                <td>
+                    <ContractData
+                        contract="TenderManager"
+                        method="registeredBidders"
+                        methodArgs={[accounts[0]]}
+                        labels={["Check Registered"]}/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <hr />
+        4. Use this section to create a new bid, and associate with the above tender.
         <table border="1">
             <tbody>
                 <tr>
@@ -176,6 +214,27 @@ export default ({ accounts }) => (
                         contract="TenderManager"
                         method="associateIPFS"
                         labels={["IPFS Hash", "Bid Address"]}/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Submit Bid:
+                </td>
+                <td>
+                    <ContractForm
+                        contract="TenderManager"
+                        method="submitBid"
+                        labels={["Bid Address"]}/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Bid Is Submitted:
+                </td>
+                <td>
+                    <ContractData
+                        contract="TenderManager"
+                        method="bidIsAttachedToTender"/>
                 </td>
             </tr>
             </tbody>

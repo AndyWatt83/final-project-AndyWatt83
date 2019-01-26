@@ -45,7 +45,7 @@ contract TenderManager is Ownable, Pausable
     /// @dev Checks that the sender address has an entry in registeredBidders.
     modifier callerIsBidder()
     {
-        require (registeredBidders[msg.sender], "Caller is not a registered client");
+        require (registeredBidders[msg.sender], "Caller is not a registered bidder");
         _;
     }
 
@@ -165,16 +165,16 @@ contract TenderManager is Ownable, Pausable
 
     /// @notice Places a bid on an open tender
     /// @dev Places a bid on an open tender
-    function bidOnTender(address tenderAddress)
+    function submitBid(address bidAddress)
         public
         whenNotPaused()
         callerIsBidder()
-        view
-        returns (uint)
+        returns (bool)
     {
-        Tender tender = Tender(address(tenderAddress));
-        uint percentage = tender.percentageDownpayment();
-        return percentage;
+        Bid bid = Bid(address(bidAddress));
+        bid.submitBid();
+        bidIsAttachedToTender = true;
+        return true;
     }
 
     /// @notice Attaches an IPFS hash to either a tender or a bid
@@ -197,7 +197,9 @@ contract TenderManager is Ownable, Pausable
         selfdestruct(address(recipient));
     }
 
-    // Below are helper methods / shortcuts for use in the drizzle UI. These should be removed and the UI updated.
+    // Below are helper methods / shortcuts for use in the drizzle UI.
+    // All code from below these comments should be removed, and a better solution for surfacing the data implemented.
+    // Considering a 'viewmodel' type contract, borrowing from MVVM practices. More consideration required
     function openContract() public{
         Tender tender = Tender(address(tenderIdAddresses[1]));
         tender.openTender();
@@ -221,4 +223,5 @@ contract TenderManager is Ownable, Pausable
     bool public tenderIsOpen;
     bool public tenderIsAwarded;
     bool public tenderIsComplete;
+    bool public bidIsAttachedToTender;
 }

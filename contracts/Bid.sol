@@ -8,8 +8,9 @@ import "./IpfsHashHolder.sol";
 contract Bid is IpfsHashHolder
 {
     address public tenderAddress;
-    uint bidId;
-    uint cost;
+    uint public bidId;
+    uint public cost;
+    bool public submitted;
 
 
     /// @notice Depolys an instance of the Bid contract
@@ -19,5 +20,10 @@ contract Bid is IpfsHashHolder
         tenderAddress = _tenderAddress;
         bidId = _bidId;
         cost = _cost;
+    }
+
+    function submitBid() public
+    {
+        submitted = true;
     }
 }
