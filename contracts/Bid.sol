@@ -23,6 +23,9 @@ contract Bid is IpfsHashHolder
 
     /// @notice Depolys an instance of the Bid contract
     /// @dev stores the address of the tender that this bid is bidding on
+    /// @param _bidId the ID of the bid
+    /// @param _cost the amount in ETH that the bidder wants to carry out the work
+    /// @param _tenderAddress the address of the tender that is being bid on
     constructor (uint _bidId, uint _cost, address _tenderAddress) public
     {
         tenderAddress = _tenderAddress;

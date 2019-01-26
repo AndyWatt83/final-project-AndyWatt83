@@ -78,6 +78,7 @@ contract Tender is IpfsHashHolder
 
     /// @notice Moves an open tender to Awarded, ready for work to commence
     /// @dev sets the enum to TenderState.Open, and stores the winning address
+    /// @param _winner the address of the winning bid
     function awardTender(address _winner)
         public
         checkState(TenderState.Open)
