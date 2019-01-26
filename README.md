@@ -38,7 +38,7 @@ To run this project, you must have the following installed:
 To evaluate this project, please:
 
 0. `ganache-cli`
-1. Ensure that metamask is connected to your instance of ganache-cle
+1. Ensure that metamask is connected to your instance of ganache
 2. `git clone https://github.com/dev-bootcamp-2019/final-project-andywatt83`
 3. `cd final-project-AndyWatt83`
 4. `npm install`
