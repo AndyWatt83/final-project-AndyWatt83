@@ -24,6 +24,15 @@ contract TenderManager is Ownable, Pausable
     event BidderRegistered(address indexed bidderAddress);
     event BidderUnregistered(address indexed bidderAddress);
 
+
+    /// @notice Constructor for the TenderManager contract.
+    /// @dev Takes no arguments, sets the currentTenderId to 1 (zero is used to mean null).
+    constructor () public
+    {
+        currentTenderId = 1;
+        currentBidId = 1;
+    }
+
     /// @notice Modifier which ensures that the sender is registerd as a client.
     /// @dev Checks that the sender address has an entry in registeredClients.
     modifier callerIsClient()
@@ -54,13 +63,6 @@ contract TenderManager is Ownable, Pausable
     {
         require (clientTenderIds[msg.sender] == 0, "Client has a tender open already");
         _;
-    }
-
-    /// @notice Constructor for the TenderManager contract.
-    /// @dev Takes no arguments, sets the currentTenderId to 1 (zero is used to mean null).
-    constructor () public
-    {
-        currentTenderId = 1;
     }
 
     /// @notice Registers a new client.
@@ -199,5 +201,24 @@ contract TenderManager is Ownable, Pausable
     function openContract() public{
         Tender tender = Tender(address(tenderIdAddresses[1]));
         tender.openTender();
+        tenderIsOpen = true;
     }
+
+    function awardContract(address winner) public{
+        Tender tender = Tender(address(tenderIdAddresses[1]));
+        tender.awardTender(winner);
+        tenderIsAwarded = true;
+        tenderIsOpen = false;
+    }
+
+    function awardComplete() public{
+        Tender tender = Tender(address(tenderIdAddresses[1]));
+        tender.completeTender();
+        tenderIsComplete = true;
+        tenderIsAwarded = false;
+    }
+
+    bool public tenderIsOpen;
+    bool public tenderIsAwarded;
+    bool public tenderIsComplete;
 }

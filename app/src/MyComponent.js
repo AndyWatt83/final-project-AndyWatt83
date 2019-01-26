@@ -77,7 +77,7 @@ export default ({ accounts }) => (
             </tr>
             <tr>
                 <td>
-                    Address:
+                    Tender Contract Address:
                 </td>
                 <td>
                     <ContractData
@@ -88,7 +88,7 @@ export default ({ accounts }) => (
             </tr>
             <tr>
                 <td>
-                    IPFS Send (to IPFS):
+                    Send tender file to IPFS:
                 </td>
                 <td>
                     <IpfsForm />
@@ -96,14 +96,14 @@ export default ({ accounts }) => (
             </tr>
             <tr>
                 <td>
-                    IPFS Send (to Smart Contract):
+                    IPFS Send hash to TENDER contract:
                 </td>
                 <td>
                     <p>Paste in the values from above</p>
                     <ContractForm
                         contract="TenderManager"
                         method="associateIPFS"
-                        labels={["IPFS Hash", "Contract Address"]}/>
+                        labels={["IPFS Hash", "Tender Address"]}/>
                 </td>
             </tr>
             <tr>
@@ -117,28 +117,67 @@ export default ({ accounts }) => (
                         method="openContract"/>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Tender Is Open (ready for bids):
+                </td>
+                <td>
+                    <ContractData
+                        contract="TenderManager"
+                        method="tenderIsOpen"/>
+
+                </td>
+            </tr>
             </tbody>
         </table>
         <hr />
         3. Use this section to create a new bid, and associate with the above tender.
-        <table>
+        <table border="1">
             <tbody>
                 <tr>
                     <td>
                         Deploy Bid Contract:
                     </td>
                     <td>
-                        todo
+                        <p>copy tender address from above</p>
+                    <ContractForm
+                        contract="TenderManager"
+                        method="createBid"
+                        labels={["cost (ETH)", "Tender Address"]}/>
+
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Address:
+                        Bid Contract Address:
                     </td>
                     <td>
-                        todo
+                        <ContractData
+                            contract="TenderManager"
+                            method="bidIdAddresses"
+                            methodArgs={[1]}/>
                     </td>
                 </tr>
+                <tr>
+                <td>
+                    Send bid file to IPFS:
+                </td>
+                <td>
+                    <IpfsForm />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    IPFS Send hash to BID contract:
+                </td>
+                <td>
+                    <p>Paste in the values from above</p>
+                    <ContractForm
+                        contract="TenderManager"
+                        method="associateIPFS"
+                        labels={["IPFS Hash", "Bid Address"]}/>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

@@ -66,6 +66,16 @@ contract Tender is IpfsHashHolder
         return currentState;
     }
 
+    /// @notice Returns a boolean indicating is the Tender is Open
+    /// @dev A work-around because handling enulerations in the UI is challenging
+    function tenderIsOpen()
+        public
+        view
+        returns (bool)
+    {
+        return currentState == TenderState.Open;
+    }
+
     /// @notice Moves an open tender to Awarded, ready for work to commence
     /// @dev sets the enum to TenderState.Open, and stores the winning address
     function awardTender(address _winner)
@@ -77,6 +87,16 @@ contract Tender is IpfsHashHolder
         currentState = TenderState.Awarded;
         emit tenderAwarded();
         return currentState;
+    }
+
+    /// @notice Returns a boolean indicating is the Tender is Awarded
+    /// @dev A work-around because handling enulerations in the UI is challenging
+    function tenderIsAwarded()
+        public
+        view
+        returns (bool)
+    {
+        return currentState == TenderState.Awarded;
     }
 
     /// @notice Moves an Awarded contract to complete
@@ -91,6 +111,16 @@ contract Tender is IpfsHashHolder
         return currentState;
     }
 
+    /// @notice Returns a boolean indicating is the Tender is Completed
+    /// @dev A work-around because handling enulerations in the UI is challenging
+    function tenderIsCompleted()
+        public
+        view
+        returns (bool)
+    {
+        return currentState == TenderState.Complete;
+    }
+
     /// @notice Cancels a contract, from any state
     /// @dev sets the enum to TenderState.Cancelled, and does the required clean up
     function cancelTender()
@@ -100,6 +130,16 @@ contract Tender is IpfsHashHolder
         currentState = TenderState.Cancelled;
         emit tenderCancelled();
         return currentState;
+    }
+
+    /// @notice Returns a boolean indicating is the Tender is Cancelled
+    /// @dev A work-around because handling enulerations in the UI is challenging
+    function tenderIsCancelled()
+        public
+        view
+        returns (bool)
+    {
+        return currentState == TenderState.Cancelled;
     }
 
     /// @notice function called by a bidder to notify the client of their bid
