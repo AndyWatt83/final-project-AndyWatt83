@@ -47,12 +47,12 @@ class IpfsForm extends Component {
     render() {
         return (
             <div className="App">
-                <h2> 1. Add a file to IPFS here </h2>
+                <h2> Select a file to send to IPFS here </h2>
                 <form id="ipfs-hash-form" className="scep-form" onSubmit={this.onIPFSSubmit}>
                     <input type = "file" onChange={this.captureFile} />
-                    <button type="submit">Send it</button>
+                    <button type="submit">Send</button>
                 </form>
-                <p> The IPFS hash is: {this.state.ipfsHash}</p>
+                <p> The IPFS hash of the sent file is: {this.state.ipfsHash}</p>
             </div>
         )
     }
