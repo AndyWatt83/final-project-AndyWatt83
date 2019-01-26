@@ -50,6 +50,19 @@ export default ({ accounts }) => (
                 method="createTender"
                 labels={["% on Award"]}/>
 
+            <br />
+            <ContractData
+                contract="TenderManager"
+                method="clientTenderIds"
+                methodArgs={[accounts[0]]}/>
+
+            <br />
+            <ContractData
+                contract="TenderManager"
+                method="tenderIdAddresses"
+                methodArgs={[2]}/>
+
+            <br />
             Set IPFS
             <ContractForm
                 contract="TenderManager"
