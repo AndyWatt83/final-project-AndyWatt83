@@ -3,18 +3,21 @@ pragma solidity ^0.5.0;
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 import "./Tender.sol";
+import "./Bid.sol";
 
 /// @author Andy Watt
 /// @title The manager contract for the decentralised tendering application
 contract TenderManager is Ownable, Pausable
 {
-    uint currentJobId;
+    uint currentTenderId;
+    uint currentBidId;
 
     mapping (address => bool) public registeredClients;
     mapping (address => bool) public registeredBidders;
-    mapping (uint => address) public jobOwners;
     mapping (address => uint) public clientTenderIds;
     mapping (uint => address) public tenderIdAddresses;
+    mapping (address => uint) public bidderBidIds;
+    mapping (uint => address) public bidIdAddresses;
 
     event ClientRegistered(address indexed clientAddress);
     event ClientUnregistered(address indexed clientAddress);
@@ -53,15 +56,11 @@ contract TenderManager is Ownable, Pausable
         _;
     }
 
-
-    uint public tenderValue;
-
     /// @notice Constructor for the TenderManager contract.
-    /// @dev Takes no arguments, sets the currentJobId to 1 (zero is used to mean null).
-    constructor () public payable
+    /// @dev Takes no arguments, sets the currentTenderId to 1 (zero is used to mean null).
+    constructor () public
     {
-        currentJobId = 1;
-        tenderValue = msg.value;
+        currentTenderId = 1;
     }
 
     /// @notice Registers a new client.
@@ -126,10 +125,28 @@ contract TenderManager is Ownable, Pausable
         clientHasNoOpenTender()
         returns (address)
     {
-        clientTenderIds[msg.sender] = currentJobId;
-        tenderIdAddresses[currentJobId] = address((new Tender).value(msg.value)(currentJobId, percentageDownpayment));
-        currentJobId += 1;
-        return tenderIdAddresses[currentJobId];
+        clientTenderIds[msg.sender] = currentTenderId;
+
+        address newTenderAddress = address((new Tender).value(msg.value)(currentTenderId, percentageDownpayment));
+        tenderIdAddresses[currentTenderId] = newTenderAddress;
+        currentTenderId += 1;
+        return newTenderAddress;
+    }
+
+    /// @notice Creates a new bid for a registered bidder, with a spcecified cost.
+    /// @param cost The amount of ETH that the bidder wants to carry out the work
+    /// @param tenderAddress The address of the Tender that is being bid on
+    /// @dev Deploys a new instance of the Bid contract, and associates it with the calling bidder.
+    function createBid(uint cost, address tenderAddress)
+        public
+        payable
+        whenNotPaused()
+        returns (address)
+    {
+        bidderBidIds[msg.sender] = currentBidId;
+        bidIdAddresses[currentBidId] = address(new Bid(currentBidId, cost, tenderAddress));
+        currentBidId += 1;
+        return bidIdAddresses[currentBidId - 1];
     }
 
     /// @notice Closes a new tender for a registered client.
@@ -176,5 +193,11 @@ contract TenderManager is Ownable, Pausable
     {
         // there may be a lot of cleanup required here. For now, just self destruct
         selfdestruct(address(recipient));
+    }
+
+    // Below are helper methods / shortcuts for use in the drizzle UI. These should be removed and the UI updated.
+    function openContract() public{
+        Tender tender = Tender(address(tenderIdAddresses[1]));
+        tender.openTender();
     }
 }

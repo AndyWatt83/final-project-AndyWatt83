@@ -24,6 +24,7 @@ export default ({ accounts }) => (
         <hr />
         <p> 1. Use this section to register and unregister as a CLIENT. Being a registered client allows the account to create new tenders</p>
         <table border="1">
+            <tbody>
             <tr>
                 <td>
                     Register as client
@@ -56,20 +57,22 @@ export default ({ accounts }) => (
                         labels={["Check Registered"]}/>
                 </td>
             </tr>
+            </tbody>
         </table>
         <hr />
         <p> 2. Use this section to create a new tender, and upload the tender document to IPFS. Note, that a sample tender is include in the 'samples' folder in the repo</p>
         <p> The client should indicate what persentage of the contract cost they will pay upfront. Enter as a number "10", and not "10%"</p>
         <table border="1">
+            <tbody>
             <tr>
                 <td>
-                    Deploy contract:
+                    Deploy Tender Contract:
                 </td>
                 <td>
                     <ContractForm
-                    contract="TenderManager"
-                    method="createTender"
-                    labels={["% on Award"]}/>
+                        contract="TenderManager"
+                        method="createTender"
+                        labels={["% on Award"]}/>
                 </td>
             </tr>
             <tr>
@@ -96,46 +99,47 @@ export default ({ accounts }) => (
                     IPFS Send (to Smart Contract):
                 </td>
                 <td>
-                    <IpfsForm />
+                    <p>Paste in the values from above</p>
+                    <ContractForm
+                        contract="TenderManager"
+                        method="associateIPFS"
+                        labels={["IPFS Hash", "Contract Address"]}/>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Open Tender:
+                </td>
+                <td>
+                    <p>Click to open the tender</p>
+                    <ContractForm
+                        contract="TenderManager"
+                        method="openContract"/>
+                </td>
+            </tr>
+            </tbody>
         </table>
-
-        <div className="section">
-            <h2> Tender Manager </h2>
-            <ContractForm contract="TenderManager" method="registeredClients" methodArgs={[accounts[0]]}/>
-
-            <br />
-            Create Tender:
-
-
-            <br />
-            <ContractData
-                contract="TenderManager"
-                method="clientTenderIds"
-                methodArgs={[accounts[0]]}/>
-
-            <br />
-            <ContractData
-                contract="TenderManager"
-                method="tenderIdAddresses"
-                methodArgs={[2]}/>
-
-            <br />
-            Set IPFS
-            <ContractForm
-                contract="TenderManager"
-                method="setIpfsHash"
-                labels={["Paste in IPFS Hash"]}/>
-                <br />
-            <ContractData
-                contract="TenderManager"
-                method="ipfsHash"
-                labels={["Current Hash"]}/>
-        </div>
-
-        {/* <div className="section">
-
-        </div> */}
+        <hr />
+        3. Use this section to create a new bid, and associate with the above tender.
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        Deploy Bid Contract:
+                    </td>
+                    <td>
+                        todo
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Address:
+                    </td>
+                    <td>
+                        todo
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 );

@@ -8,14 +8,16 @@ import "./IpfsHashHolder.sol";
 contract Bid is IpfsHashHolder
 {
     address public tenderAddress;
-    Tender public tender;
+    uint bidId;
+    uint cost;
 
-    uint percentagePromised;
 
     /// @notice Depolys an instance of the Bid contract
     /// @dev stores the address of the tender that this bid is bidding on
-    constructor (address _tenderAddress) public
+    constructor (uint _bidId, uint _cost, address _tenderAddress) public
     {
         tenderAddress = _tenderAddress;
+        bidId = _bidId;
+        cost = _cost;
     }
 }

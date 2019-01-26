@@ -1,5 +1,5 @@
 const TenderManager = artifacts.require('TenderManager');
 
 module.exports = function (deployer) {
-    deployer.deploy(TenderManager, { value: 1000000 });
+    deployer.deploy(TenderManager);
 };

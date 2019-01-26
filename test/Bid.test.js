@@ -9,8 +9,8 @@ contract('Testing Bid', async (accounts) => {
      * Simply check that the params are stored.
      **/
     it('Should store the constructor argument(s)', async () => {
-        const tender = await Tender.new(123, 45);
-        const bid = await Bid.new(tender.address);
+        const tender = await Tender.new(10, 45);
+        const bid = await Bid.new(1, 15, tender.address);
 
         const tenderAddress = await bid.tenderAddress.call();
 
