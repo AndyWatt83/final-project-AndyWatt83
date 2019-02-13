@@ -10,12 +10,22 @@ contract Bid is IpfsHashHolder
     address public tenderAddress;
     uint public bidId;
     uint public cost;
-    bool public submitted;
-    bool public cancelled;
+    BidState public bidState;
+
+    /// @notice An enumeration of the possible contract states
+    enum BidState { Submitted, Accepted, Rejected, Cancelled }
 
     /// @notice An event which is raised whhen the bid is submitted
     /// @dev Emits an event whrn submit Bid is called
     event bidIsSubmitted();
+
+    /// @notice An event which is raised whhen the bid is accepted
+    /// @dev Emits an event whrn accept Bid is called
+    event bidIsAccepted();
+
+    /// @notice An event which is raised whhen the bid is rejected
+    /// @dev Emits an event whrn accept Bid is called
+    event bidIsRejected();
 
     /// @notice An event which is raised whhen the bid is cancelled
     /// @dev Emits an event whrn cancel Bid is called
@@ -37,14 +47,14 @@ contract Bid is IpfsHashHolder
     /// @dev sets a flag indicating that the bid is submitted
     function submitBid() public
     {
-        submitted = true;
+        bidState = BidState.Submitted;
         emit bidIsSubmitted();
     }
 
     /// @notice Cancells the bid
     /// @dev Sets a flag indicating that the bid is cencelled
-    function cancelBid() public{
-        cancelled = true;
+    function cancelBid() public {
+        bidState = BidState.Cancelled;
         emit bidIsCancelled();
     }
 }

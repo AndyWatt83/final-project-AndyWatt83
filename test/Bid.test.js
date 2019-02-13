@@ -19,16 +19,16 @@ contract('Testing Bid', async (accounts) => {
 
     /* Checks that the bid can be submitted
      */
-    it('Should submit the bid', async () => {
-        const tender = await Tender.new(10, 45);
-        const bid = await Bid.new(1, 15, tender.address);
+    // it('Should submit the bid', async () => {
+    //     const tender = await Tender.new(10, 45);
+    //     const bid = await Bid.new(1, 15, tender.address);
 
-        await bid.submitBid();
+    //     await bid.submitBid();
 
-        const result = await bid.submitted.call();
+    //     const result = await bid.submitted.call();
 
-        assert.isTrue(result);
-    });
+    //     assert.isTrue(result);
+    // });
 
     /* Checks that the event is emitted when bid is submitted
      * This is used by the UI to report that operation has completed.
@@ -42,18 +42,18 @@ contract('Testing Bid', async (accounts) => {
         truffleAssert.eventEmitted(result, 'bidIsSubmitted');
     });
 
-    /* Checks that the bid can be cancelled
-     */
-    it('Should cancel the bid', async () => {
-        const tender = await Tender.new(10, 45);
-        const bid = await Bid.new(1, 15, tender.address);
+    // /* Checks that the bid can be cancelled
+    //  */
+    // it('Should cancel the bid', async () => {
+    //     const tender = await Tender.new(10, 45);
+    //     const bid = await Bid.new(1, 15, tender.address);
 
-        await bid.cancelBid();
+    //     await bid.cancelBid();
 
-        const result = await bid.cancelled.call();
+    //     const result = await bid.cancelled.call();
 
-        assert.isTrue(result);
-    });
+    //     assert.isTrue(result);
+    // });
 
     /* Checks that the event is emitted when bid is submitted
      * This is used by the UI to report that operation has completed.
